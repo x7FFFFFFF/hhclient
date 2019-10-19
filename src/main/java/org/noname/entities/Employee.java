@@ -1,5 +1,7 @@
 package org.noname.entities;
 
+import org.noname.html.Converter;
+import org.noname.html.HtmlAttribute;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -9,28 +11,35 @@ import java.util.List;
 public class Employee {
 
 
+    private static final String ITEMPROP = "itemprop";
+    private static final String DATA_QA = "data-qa";
+    @HtmlAttribute(attrName = "itemprop", attrValue = "gender", converter = Converter.GENDER)
     private Sex sex;
 
     private String vacancy;
 
+    @HtmlAttribute(attrName = DATA_QA, attrValue = "resume-personal-age")
     private int age;
 
 
     private BigDecimal salary;
 
 
-
+    @HtmlAttribute(attrName = ITEMPROP, attrValue = "birthDate", valFromAttr = "content")
     private LocalDate birth;
 
-
+    @HtmlAttribute(attrName = ITEMPROP, attrValue = "addressLocality")
     private String city;
 
-
+    @HtmlAttribute(attrName = DATA_QA, attrValue = "resume-personal-metro")
     private String station;
 
     private String link;
 
-
+    /**
+     * data-qa="resume-block-education"
+     */
+    @HtmlAttribute(attrName = DATA_QA, attrValue = "resume-block-education", converter = Converter.EDUCATION)
     private Collection<Education> educations;
 
     private byte[] foto;

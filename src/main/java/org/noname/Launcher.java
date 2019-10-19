@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("application.properties")
 public class Launcher extends AbstractLauncher {
-    // private static GenericApplicationContext context;
-    // private Stage splashScreen;
+
     @Value("${title}")//
     private String windowTitle;
 
@@ -38,14 +37,5 @@ public class Launcher extends AbstractLauncher {
         stage.show();
 
     }
-
-    /**
-     * Освобождаем контекст
-     */
-    @Override
-    public void stop() {
-        // context.close();
-    }
-
 
 }
