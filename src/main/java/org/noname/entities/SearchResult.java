@@ -1,20 +1,34 @@
 package org.noname.entities;
 
-import org.noname.html.HtmlCollection;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResult {
 
-    @HtmlCollection(attrName = "itemtype", attrValue = "http://schema.org/Person", collectionElementType = EmployeeSimple.class)
-    private List<EmployeeSimple> employees;
+    private final  List<EmployeeSimple> employees = new ArrayList<>();
+
+    private final int size;
+
+
+
+    public SearchResult(Element node) {
+        Elements elements = node.getElementsByAttributeValue("itemtype", "http://schema.org/Person");
+        size = elements.size();
+        for (Element element : elements) {
+            employees.add(new EmployeeSimple(element));
+        }
+    }
+
 
 
     public List<EmployeeSimple> getEmployees() {
         return employees;
     }
 
-    public void setEmployees(List<EmployeeSimple> employees) {
-        this.employees = employees;
+    public int getSize() {
+        return size;
     }
 }

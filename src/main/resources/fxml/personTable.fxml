@@ -9,6 +9,7 @@
     <columns>
         <TableColumn fx:id="age" prefWidth="30.0" text="age"/>
         <TableColumn fx:id="salary" prefWidth="200.0" text="salary"/>
+        <TableColumn fx:id="jobTitle" prefWidth="200.0" text="jobTitle"/>
 
     </columns>
 </TableView>

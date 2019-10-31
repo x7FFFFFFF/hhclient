@@ -60,7 +60,7 @@ public class HtmlParser {
 
         @Override
         public void head(Node node, int i) {
-            final Attributes attributes = node.attributes();
+          /*  final Attributes attributes = node.attributes();
             for (Attribute attribute : attributes) {
                 String key = Util.getKey(attribute);
                 final FieldWrapper fieldWrapper = annotatedFields.get(key);
@@ -80,11 +80,11 @@ public class HtmlParser {
                         }
                     }
                 }
-            }
+            }*/
         }
 
         private void set(FieldWrapper fieldWrapper, HtmlAttribute annotation, String resultStr) {
-            if (annotation.converter() == Converter.NONE) {
+           /* if (annotation.converter() == Converter.NONE) {
                 final Class<?> type = fieldWrapper.getField().getType();
                 if (type == int.class) {
                     fieldWrapper.set(Converter.INT.convert(resultStr));
@@ -95,7 +95,7 @@ public class HtmlParser {
                 }
             } else {
                 fieldWrapper.set(annotation.converter().convert(resultStr));
-            }
+            }*/
         }
 
         @Override

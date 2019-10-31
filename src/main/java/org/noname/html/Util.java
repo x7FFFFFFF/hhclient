@@ -1,11 +1,15 @@
 package org.noname.html;
 
 import org.jsoup.nodes.Attribute;
+import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
+import org.jsoup.select.Elements;
 import org.jsoup.select.NodeFilter;
 
 
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
+import java.net.URLEncoder;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,7 +22,7 @@ public class Util {
         for (Field declaredField : declaredFields) {
             final HtmlAttribute annotation = declaredField.getAnnotation(HtmlAttribute.class);
             if (annotation != null) {
-                res.put(getKey(annotation), new FieldWrapper(declaredField, annotation, instance));
+                //res.put(getKey(annotation), new FieldWrapper(declaredField, annotation, instance));
             }
         }
         return res;
@@ -94,8 +98,41 @@ public class Util {
         }
     }
 
-    public static boolean isCollection(HtmlAttribute annotation) {
-        return annotation.collectionElementtype() != void.class;
+  /*  public static boolean isCollection(HtmlAttribute annotation) {
+      //  return annotation.collectionElementtype() != void.class;
+    }
+*/
+
+
+
+    public static Element requireOneElement(Elements elements) {
+        if (elements.size() != 1) {
+            throw new IllegalStateException("requireOneElement! \n" + elements + "\n");
+        }
+        return elements.get(0);
     }
 
+
+    public static String encode(String term) {
+        String str;
+        try {
+            str = URLEncoder.encode(term, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+        return str;
+    }
+
+    @FunctionalInterface
+    public interface SupplierEx<T> {
+        T get() throws Exception;
+    }
+
+    public static <T> T wrapEx(SupplierEx<T> supl) {
+        try {
+            return supl.get();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
